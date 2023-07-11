@@ -1,4 +1,4 @@
-export const server = "https://job-board-humy.onrender.com:4444";
+export const server = "http://localhost:4444";
 
 const apiList = {
   login: `${server}/auth/login`,
