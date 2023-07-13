@@ -692,9 +692,6 @@ const Home = (props) => {
             </Typography>
           )}
         </Grid>
-        {/* <Grid item>
-          <Pagination count={10} color="primary" />
-        </Grid> */}
       </Grid>
       <FilterPopup
         open={filterOpen}

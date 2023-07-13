@@ -48,18 +48,12 @@ router.post("/jobs", jwtAuth, (req, res) => {
     });
 });
 
-// to get all the jobs [pagination] [for recruiter personal and for everyone]
 router.get("/jobs", jwtAuth, (req, res) => {
   let user = req.user;
 
   let findParams = {};
   let sortParams = {};
 
-  // const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
-  // const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
-  // const skip = page - 1 >= 0 ? (page - 1) * limit : 0;
-
-  // to list down jobs posted by a particular recruiter
   if (user.type === "recruiter" && req.query.myjobs) {
     findParams = {
       ...findParams,
@@ -167,10 +161,6 @@ router.get("/jobs", jwtAuth, (req, res) => {
 
   console.log(findParams);
   console.log(sortParams);
-
-  // Job.find(findParams).collation({ locale: "en" }).sort(sortParams);
-  // .skip(skip)
-  // .limit(limit)
 
   let arr = [
     {
@@ -586,7 +576,6 @@ router.post("/jobs/:id/applications", jwtAuth, (req, res) => {
     });
 });
 
-// recruiter gets applications for a particular job [pagination] [todo: test: done]
 router.get("/jobs/:id/applications", jwtAuth, (req, res) => {
   const user = req.user;
   if (user.type != "recruiter") {
@@ -597,9 +586,6 @@ router.get("/jobs/:id/applications", jwtAuth, (req, res) => {
   }
   const jobId = req.params.id;
 
-  // const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
-  // const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
-  // const skip = page - 1 >= 0 ? (page - 1) * limit : 0;
 
   let findParams = {
     jobId: jobId,
@@ -628,13 +614,8 @@ router.get("/jobs/:id/applications", jwtAuth, (req, res) => {
     });
 });
 
-// recruiter/applicant gets all his applications [pagination]
 router.get("/applications", jwtAuth, (req, res) => {
   const user = req.user;
-
-  // const page = parseInt(req.query.page) ? parseInt(req.query.page) : 1;
-  // const limit = parseInt(req.query.limit) ? parseInt(req.query.limit) : 10;
-  // const skip = page - 1 >= 0 ? (page - 1) * limit : 0;
 
   Application.aggregate([
     {
@@ -1343,38 +1324,5 @@ router.get("/rating", jwtAuth, (req, res) => {
     });
   });
 });
-
-// Application.findOne({
-//   _id: id,
-//   userId: user._id,
-// })
-//   .then((application) => {
-//     application.status = status;
-//     application
-//       .save()
-//       .then(() => {
-//         res.json({
-//           message: `Application ${status} successfully`,
-//         });
-//       })
-//       .catch((err) => {
-//         res.status(400).json(err);
-//       });
-//   })
-//   .catch((err) => {
-//     res.status(400).json(err);
-//   });
-
-// router.get("/jobs", (req, res, next) => {
-//   passport.authenticate("jwt", { session: false }, function (err, user, info) {
-//     if (err) {
-//       return next(err);
-//     }
-//     if (!user) {
-//       res.status(401).json(info);
-//       return;
-//     }
-//   })(req, res, next);
-// });
 
 module.exports = router;

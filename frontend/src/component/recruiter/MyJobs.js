@@ -366,7 +366,6 @@ const FilterPopup = (props) => {
               item
               xs={9}
               justify="space-around"
-              // alignItems="center"
             >
               <Grid item>
                 <FormControlLabel
